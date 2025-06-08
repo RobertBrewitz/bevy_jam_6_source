@@ -1,4 +1,5 @@
 use bevy::{prelude::*, render::view::RenderLayers, ui::ContentSize};
+use dotenv_codegen::dotenv;
 
 use crate::{
     canvas::{
@@ -16,7 +17,7 @@ use crate::{
             SyltButtonPressed,
         },
         constants::{SU4, SU8},
-        escape::SyltEscape,
+        // escape::SyltEscape,
         layouts::layout_wrapper,
     },
 };
@@ -140,25 +141,25 @@ fn spawn_title_menu(
         .spawn_sylt_button("youtube", RightItem)
         .observe(last_right_menu_item_observer::<SyltButtonFocused>())
         .observe(move |_: Trigger<Pointer<Released>>| {
-            if let Ok(youtube_url) = dotenv::var("YOUTUBE_URL") {
-                #[cfg(not(target_arch = "wasm32"))]
-                open::that(youtube_url).unwrap();
+            let youtube_url = dotenv!("YOUTUBE_URL").to_string();
 
-                #[cfg(target_arch = "wasm32")]
-                if let Some(window) = web_sys::window() {
-                    window.open_with_url_and_target(&youtube_url, "_blank");
-                }
+            #[cfg(not(target_arch = "wasm32"))]
+            open::that(youtube_url).unwrap();
+
+            #[cfg(target_arch = "wasm32")]
+            if let Some(window) = web_sys::window() {
+                window.open_with_url_and_target(&youtube_url, "_blank");
             }
         })
         .observe(move |_: Trigger<SyltButtonPressed>| {
-            if let Ok(youtube_url) = dotenv::var("YOUTUBE_URL") {
-                #[cfg(not(target_arch = "wasm32"))]
-                open::that(youtube_url).unwrap();
+            let youtube_url = dotenv!("YOUTUBE_URL").to_string();
 
-                #[cfg(target_arch = "wasm32")]
-                if let Some(window) = web_sys::window() {
-                    window.open_with_url_and_target(&youtube_url, "_blank");
-                }
+            #[cfg(not(target_arch = "wasm32"))]
+            open::that(youtube_url).unwrap();
+
+            #[cfg(target_arch = "wasm32")]
+            if let Some(window) = web_sys::window() {
+                window.open_with_url_and_target(&youtube_url, "_blank");
             }
         })
         .id();
