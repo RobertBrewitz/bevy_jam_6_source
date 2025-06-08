@@ -1,0 +1,25 @@
+[unstable]
+codegen-backend = true
+
+[profile.dev]
+codegen-backend = "cranelift"
+
+[profile.dev.package."*"]
+codegen-backend = "llvm"
+
+[env]
+ITCHIO = "hrodban/bevy-jam-6"
+PROJECT_QUALIFIER = "se"
+PROJECT_ORGANIZATION= "JRBB"
+PROJECT_NAME = "sylt_template"
+
+[target.wasm32-unknown-unknown]
+runner = "wasm-server-runner"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=lld", "-Zshare-generics=y"]
+
+[rust-analyzer.cargo.target]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=lld", "-Zshare-generics=y"]

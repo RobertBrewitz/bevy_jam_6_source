@@ -1,0 +1,12 @@
+pub const SU1: f32 = 4.0;
+pub const SU2: f32 = 8.0;
+pub const SU3: f32 = 12.0;
+pub const SU4: f32 = 16.0;
+pub const SU5: f32 = 20.0;
+pub const SU6: f32 = 24.0;
+pub const SU7: f32 = 28.0;
+pub const SU8: f32 = 32.0;
+pub const SU9: f32 = 36.0;
+pub const SU10: f32 = 40.0;
+pub const SU11: f32 = 44.0;
+pub const SU12: f32 = 48.0;

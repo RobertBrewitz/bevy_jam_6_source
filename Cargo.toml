@@ -1,0 +1,88 @@
+[package]
+name = "bevy_jam_6"
+description = "Hrodban's entry for Bevy Jam 6"
+version = "0.1.0"
+rust-version = "1.85"
+edition = "2024"
+publish = false
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+
+[dependencies]
+ron = "0.8.1"
+serde = "1.0.202"
+serde_json = "1.0.64"
+serde_yaml = "0.9.34"
+
+# engine
+bevy = { version = "0.16.0", default-features = true, features = ["wav", "wayland", "webgpu"] }
+
+# rendering
+vello = "0.5.0"
+vello_svg = "0.7.0"
+
+# optimizations
+log = { version = "*", features = ["max_level_debug", "release_max_level_warn"] }
+
+# misc
+directories = "5.0.1"
+copypasta = "0.10.1"
+url = { version = "2.5.2", default-features = true }
+base64 = "0.22.1"
+chrono = "0.4.38"
+dotenv = "0.15.0"
+thiserror = "1.0.63"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+open = "5.3.2"
+parley = { version = "0.4.0", features = ["system"] }
+
+# wasm
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2.100"
+wasm-bindgen-futures = "0.4.50"
+js-sys = "0.3.72"
+indexed_db_futures = "0.6.0"
+serde-wasm-bindgen = "0.6.5"
+crossbeam-channel = "0.5.13"
+parley = { version = "0.4.0", default-features = false, features = ["std"] }
+
+[target.wasm32-unknown-unknown.dependencies.web-sys]
+version = "0.3.55"
+features = [
+  # storage
+  "IdbDatabase",
+  "IdbFactory",
+  "IdbIndex",
+  "IdbObjectStore",
+  "IdbObjectStoreParameters",
+  "IdbOpenDbRequest",
+  "IdbKeyRange",
+  "IdbRequest",
+  "IdbRequestReadyState",
+  "IdbTransaction",
+  "IdbTransactionMode",
+  "IdbVersionChangeEvent",
+
+  # other
+  "Window"
+]
+
+[target.'cfg(windows)'.dependencies]
+blake3 = { version = "1.5.1", features=["pure"] } # https://github.com/bevyengine/bevy/issues/10425
+
+[lints.clippy]
+type_complexity = "allow"
+
+[features]
+default = []
+dev = ["bevy/file_watcher", "bevy/dynamic_linking"]
+ui_debug = []
