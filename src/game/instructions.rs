@@ -16,7 +16,15 @@ impl Plugin for InstructionsPlugin {
     fn build(&self, app: &mut App) {
         app.init_state::<InstructionState>();
 
-        app.add_systems(OnEnter(SyltRouterState::Game), spawn_wrapper);
+        app.add_systems(
+            OnEnter(SyltRouterState::Game),
+            (spawn_wrapper, show_instructions).chain(),
+        );
+
+        app.add_systems(
+            OnExit(SyltRouterState::Game),
+            (hide_instructions).chain(),
+        );
 
         app.add_systems(
             OnEnter(InstructionState::Build),
@@ -32,10 +40,25 @@ impl Plugin for InstructionsPlugin {
     }
 }
 
+fn show_instructions(
+    mut instruction_state: ResMut<NextState<InstructionState>>,
+) {
+    instruction_state.set(InstructionState::Gameplay);
+}
+
+fn hide_instructions(
+    mut instruction_state: ResMut<NextState<InstructionState>>,
+) {
+    instruction_state.set(InstructionState::None);
+}
+
 #[derive(Resource, Deref)]
 pub struct InstructionsWrapper(pub Entity);
 
-fn spawn_wrapper(mut cmd: Commands) {
+fn spawn_wrapper(
+    mut cmd: Commands,
+    mut instruction_state: ResMut<NextState<InstructionState>>,
+) {
     let wrapper = cmd
         .spawn((
             StateScoped(SyltRouterState::Game),
@@ -59,6 +82,7 @@ fn spawn_wrapper(mut cmd: Commands) {
         .id();
 
     cmd.insert_resource(InstructionsWrapper(wrapper));
+    instruction_state.set(InstructionState::Gameplay);
 }
 
 #[derive(States, Copy, Clone, Eq, PartialEq, Hash, Debug, Default)]
