@@ -62,10 +62,10 @@ impl Default for SyltSettings {
     fn default() -> Self {
         Self {
             master_volume: 0.25,
-            dialog_volume: 1.0,
-            music_volume: 0.8,
-            effects_volume: 0.9,
-            ui_volume: 0.7,
+            dialog_volume: 0.5,
+            music_volume: 0.5,
+            effects_volume: 0.5,
+            ui_volume: 0.5,
             locale: SyltLocale::English,
             msaa_setting: SyltMsaaSetting(Msaa::Off),
             window_mode: SyltWindowModeSetting(WindowMode::Windowed),

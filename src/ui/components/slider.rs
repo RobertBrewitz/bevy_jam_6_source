@@ -13,7 +13,6 @@ use crate::{
         cardinal_navigation::{
             SyltCardinalFocusable, SyltCardinalFocusedResource,
         },
-        components::focus_animation::SyltFocusPrimary,
         system_set::SyltUiSystem,
     },
     vectors::easings::ease_out_elastic,
@@ -36,7 +35,7 @@ impl Plugin for SyltSliderPlugin {
 }
 
 #[derive(Component)]
-#[require(SyltUiScene, SyltCardinalFocusable, SyltFocusPrimary, Node, ZIndex)]
+#[require(SyltUiScene, SyltCardinalFocusable, Node, ZIndex)]
 pub struct SyltSlider {
     pub range: RangeInclusive<f32>,
     pub slide_animation_timer: Timer,
@@ -130,7 +129,7 @@ fn render_slider(
         scene.fill(
             vello::peniko::Fill::NonZero,
             vello::kurbo::Affine::default(),
-            vello::peniko::Color::new([0., 0., 0., 0.5]),
+            vello::peniko::Color::new([0.2, 0.2, 0.2, 1.0]),
             None,
             &slider_bg,
         );
@@ -138,7 +137,7 @@ fn render_slider(
         scene.fill(
             vello::peniko::Fill::NonZero,
             vello::kurbo::Affine::default(),
-            vello::peniko::Color::new([1., 1., 1., 0.5]),
+            vello::peniko::Color::new([0.7, 0.7, 0.7, 1.0]),
             None,
             &slider_fg,
         );
