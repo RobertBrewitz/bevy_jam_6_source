@@ -1,6 +1,8 @@
 # Bevy game jam #6
 
-Entry to the Bevy game jam #6 [https://itch.io/jam/bevy-jam-6](https://itch.io/jam/bevy-jam-6).
+Bevy game jam #6: [https://itch.io/jam/bevy-jam-6](https://itch.io/jam/bevy-jam-6).
+
+"Play": [https://hrodban.itch.io/bevy-jam-6](https://hrodban.itch.io/bevy-jam-6)
 
 ## Theme
 
